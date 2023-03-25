@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package tasks;
+
+service Tasks {
+    rpc AddTask(Task) returns (Empty) {}
+    rpc ListTasks(Empty) returns (stream Task) {}
+}
+
+enum TaskStatus {
+  TODO = 0;
+  IN_PROGRESS = 1;
+  DONE = 2;
+}
+
+message Task {
+  string title = 1;
+  string description = 2;
+  TaskStatus status = 3;
+}
+
+message Empty {}
