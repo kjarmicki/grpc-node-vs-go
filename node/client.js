@@ -1,19 +1,8 @@
 const grpc = require('@grpc/grpc-js');
-const protoLoader = require('@grpc/proto-loader');
+const createTasksDescriptor = require('./descriptor');
+const { PROTO_PATH, SERVER_ADDRESS } = require('./config');
 
-const PROTO_PATH = './tasks.proto';
-const SERVER_ADDRESS = 'localhost:50051';
-
-const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
-  keepCase: true,
-  longs: String,
-  enums: String,
-  defaults: true,
-  oneofs: true,
-});
-const protoDescriptor = grpc.loadPackageDefinition(packageDefinition);
-const { tasks: tasksDescriptor } = protoDescriptor;
-
+const tasksDescriptor = createTasksDescriptor(PROTO_PATH);
 const stub = new tasksDescriptor.Tasks(SERVER_ADDRESS, grpc.credentials.createInsecure());
 stub.addTask({
   title: 'first task',
