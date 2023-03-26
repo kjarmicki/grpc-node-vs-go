@@ -1,6 +1,6 @@
 const grpc = require('@grpc/grpc-js');
 const createTasksDescriptor = require('./descriptor');
-const { PROTO_PATH, SERVER_ADDRESS } = require('./config');
+const { PROTO_PATH, NODE_SERVER_ADDRESS } = require('./config');
 
 const tasksDescriptor = createTasksDescriptor(PROTO_PATH);
 
@@ -21,7 +21,7 @@ server.addService(tasksDescriptor.Tasks.service, {
   addTask,
   listTasks,
 });
-server.bindAsync(SERVER_ADDRESS, grpc.ServerCredentials.createInsecure(), () => {
+server.bindAsync(NODE_SERVER_ADDRESS, grpc.ServerCredentials.createInsecure(), () => {
   server.start();
-  console.log(`server running at ${SERVER_ADDRESS}`);
+  console.log(`server running at ${NODE_SERVER_ADDRESS}`);
 });

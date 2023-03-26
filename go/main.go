@@ -11,14 +11,15 @@ import (
 	"kjarmicki.github.com/grpc-node-vs-go/tasks"
 )
 
-const SERVER_ADDRESS = "localhost:50051"
+const NODE_SERVER_ADDRESS = "localhost:50050"
+const GO_SERVER_ADDRESS = "localhost:50051"
 
 func startServer() {
-	server.StartNewTasksServer(SERVER_ADDRESS)
+	server.StartNewTasksServer(GO_SERVER_ADDRESS)
 }
 
 func startClient() {
-	cl, close := client.NewClient(SERVER_ADDRESS)
+	cl, close := client.NewClient(NODE_SERVER_ADDRESS)
 	defer close()
 
 	_, err := cl.AddTask(context.Background(), &tasks.Task{

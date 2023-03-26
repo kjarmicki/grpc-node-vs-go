@@ -1,4 +1,5 @@
 module.exports = {
   PROTO_PATH: './tasks.proto',
-  SERVER_ADDRESS: 'localhost:50051'
+  NODE_SERVER_ADDRESS: 'localhost:50050',
+  GO_SERVER_ADDRESS: 'localhost:50051'
 };
