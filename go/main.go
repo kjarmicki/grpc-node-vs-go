@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
+	"flag"
 	"io"
 	"log"
-	"time"
 
 	"kjarmicki.github.com/grpc-node-vs-go/client"
 	server "kjarmicki.github.com/grpc-node-vs-go/server"
@@ -13,11 +13,11 @@ import (
 
 const SERVER_ADDRESS = "localhost:50051"
 
-func main() {
-	go func() {
-		server.StartNewTasksServer(SERVER_ADDRESS)
-	}()
-	<-time.After(time.Second)
+func startServer() {
+	server.StartNewTasksServer(SERVER_ADDRESS)
+}
+
+func startClient() {
 	cl, close := client.NewClient(SERVER_ADDRESS)
 	defer close()
 
@@ -43,5 +43,19 @@ func main() {
 			log.Fatalf("%v", err)
 		}
 		log.Println(task)
+	}
+}
+
+func main() {
+	mode := flag.String("mode", "server", "")
+	flag.Parse()
+
+	switch *mode {
+	case "server":
+		startServer()
+	case "client":
+		startClient()
+	default:
+		log.Fatalf("unrecognized run mode: %s", *mode)
 	}
 }

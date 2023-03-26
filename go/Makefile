@@ -8,5 +8,8 @@ protoc_generate:
     --go-grpc_out=./tasks --go-grpc_opt=paths=source_relative \
     tasks.proto
 
-start:
-	go run ./
+start_server:
+	go run ./ -mode server
+
+start_client:
+	go run ./ -mode client

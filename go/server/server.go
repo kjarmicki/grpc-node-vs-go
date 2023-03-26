@@ -47,5 +47,6 @@ func (ts *TasksServer) ListTasks(empty *tasks_grpc.Empty, listTasks tasks_grpc.T
 			return err
 		}
 	}
+	fmt.Printf("listed %d tasks\n", len(ts.list))
 	return nil
 }

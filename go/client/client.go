@@ -13,7 +13,7 @@ func NewClient(address string) (tasks.TasksClient, func() error) {
 	opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	conn, err := grpc.Dial(address, opts...)
 	if err != nil {
-		log.Fatalf("fail to dial: %v", err)
+		log.Fatalf("%v", err)
 	}
 	return tasks.NewTasksClient(conn), conn.Close
 }
